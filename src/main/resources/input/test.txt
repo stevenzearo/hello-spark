@@ -1,0 +1,4 @@
+hello world
+hello steve
+today is a good day
+yes it is a good idea
