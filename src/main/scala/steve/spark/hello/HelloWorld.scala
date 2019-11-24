@@ -10,22 +10,23 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object HelloWorld {
     def main(args: Array[String]): Unit = {
+/*
         if (args.length < 2) {
             println("please set input file and output file")
             System.exit(1)
         }
+*/
 
-        val conf = new Properties
-        val filePath = new File(HelloWorld.getClass.getClassLoader.getResource("spark.properties").getPath)
+        val conf: Properties = new Properties
+        val filePath: File = new File(HelloWorld.getClass.getClassLoader.getResource("spark.properties").getPath)
         if (!filePath.exists) {
-            printf(s"file not found, name = %s", filePath.getAbsolutePath)
+            printf(s"file not found, path = %s", filePath.getAbsolutePath)
             System.exit(1)
         }
         conf.load(new FileInputStream(filePath))
 
-        val inputPath: String = conf.getProperty("inputPath")
-        val outputPath: String = conf.getProperty("outputPath")
-
+        val inputPath: String = conf.getProperty("hello.spark.inputPath")
+        val outputPath: String = conf.getProperty("hello.spark.outputPath")
         val sparkConf: SparkConf = new SparkConf().setMaster("local[1]").setAppName("HelloSpark")
         val sc: SparkContext = new SparkContext(sparkConf)
         val input: RDD[String] = sc.textFile(inputPath)
