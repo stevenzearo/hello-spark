@@ -1,24 +1,18 @@
 package steve.scala.hello
 
 import java.io.{File, FileWriter}
-import java.util.Properties
 import scala.collection.mutable.Buffer
 import scala.io.{BufferedSource, Source}
+import steve.conf.Conf
 
 /**
  * @author steve
  */
 object HelloWorld {
     def main(args: Array[String]): Unit = {
-        val conf: Properties = new Properties
-        val filePath: File = new File(HelloWorld.getClass.getClassLoader.getResource("spark.properties").getPath)
-        if (!filePath.exists()) {
-            printf(s"file not found, path = %s", filePath.getAbsolutePath)
-            System.exit(1)
-        }
-        conf.load(Source.fromFile(filePath).bufferedReader())
-        val inputPath: String = conf.getProperty("hello.scala.inputPath")
-        val outputPath: String = conf.getProperty("hello.scala.outputPath")
+        Conf.loadProperties("spark.properties")
+        val inputPath: String = Conf.getProperty("hello.inputPath")
+        val outputPath: String = Conf.getProperty("hello.scala.outputPath")
         val inputFile: File = new File(inputPath)
         val outputFile: File = new File(outputPath)
         if (!inputFile.exists()) {

@@ -1,9 +1,8 @@
 package steve.spark.hello
 
-import java.io.{File, FileInputStream}
-import java.util.Properties
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
+import steve.conf.Conf
 
 /**
  * @author steve
@@ -17,16 +16,9 @@ object HelloWorld {
         }
 */
 
-        val conf: Properties = new Properties
-        val filePath: File = new File(HelloWorld.getClass.getClassLoader.getResource("spark.properties").getPath)
-        if (!filePath.exists) {
-            printf(s"file not found, path = %s", filePath.getAbsolutePath)
-            System.exit(1)
-        }
-        conf.load(new FileInputStream(filePath))
-
-        val inputPath: String = conf.getProperty("hello.spark.inputPath")
-        val outputPath: String = conf.getProperty("hello.spark.outputPath")
+        Conf.loadProperties("spark.properties")
+        val inputPath: String = Conf.getProperty("hello.inputPath")
+        val outputPath: String = Conf.getProperty("hello.spark.outputPath")
         val sparkConf: SparkConf = new SparkConf().setMaster("local[1]").setAppName("HelloSpark")
         val sc: SparkContext = new SparkContext(sparkConf)
         val input: RDD[String] = sc.textFile(inputPath)
