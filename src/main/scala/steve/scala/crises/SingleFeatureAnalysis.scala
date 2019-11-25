@@ -16,7 +16,7 @@ object SingleFeatureAnalysis {
         if (dataStrings.isEmpty) return null
         dataStrings.map(((_: String), 1))
                 .groupBy((_: (String, Int))._1)
-                .map((group: (String, Buffer[(String, Int)])) => (group._1, group._2.reduce((_: (String, Int))._2 + (_: (String, Int))._2)))
-                .toBuffer.sortBy(-(_: (String, Int))._2)
+                .map((group: (String, Buffer[(String, Int)])) => (group._1, group._2.reduce((v1, v2) => (v1._1, v1._2 + v2._2))._2))
+                .toBuffer.sortBy((_: (String, Int))._1.toInt)
     }
 }

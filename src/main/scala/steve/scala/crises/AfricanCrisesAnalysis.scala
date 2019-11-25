@@ -20,9 +20,9 @@ object AfricanCrisesAnalysis {
         val values: Buffer[String] = lines.toBuffer
         head.foreach(println(_: String))
         val rowNums: Int = values.count(!(_: String).isEmpty)
-        println(values.head)
-        println(s"rowNums:$rowNums")
-        val caseStrings: Buffer[String] = lines.map((_: String).split(",")(0)).toBuffer
+//        println(values.head)
+//        println(s"rowNums:$rowNums")
+        val caseStrings: Buffer[String] = values.map((_: String).split(",")(0)).toBuffer
         SingleFeatureAnalysis.load_data(caseStrings)
         val caseValueCounts: Buffer[(String, Int)] = SingleFeatureAnalysis.value_counts()
         output_data(caseValueCounts)
@@ -39,14 +39,12 @@ object AfricanCrisesAnalysis {
         }
         val outputPath: String = Conf.getProperty("crises.scala.outputPath")
         val outputFile: File = new File(outputPath)
-        if (outputFile.isFile) {
-            outputFile.deleteOnExit()
-        }
         this.inputFile = inputFile
         this.outputFile = outputFile
     }
 
     def output_data[A <: Any](data: Buffer[A]): Unit = {
+        if (data == null) return
         val writer: FileWriter = new FileWriter(outputFile)
         data.foreach((value: A) => writer.write(value.toString + "\n"))
         writer.close()
