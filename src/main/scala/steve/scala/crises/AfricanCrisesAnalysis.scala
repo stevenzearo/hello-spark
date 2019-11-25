@@ -1,6 +1,6 @@
 package steve.scala.crises
 
-import java.io.File
+import java.io.{File, FileWriter}
 import scala.collection.mutable.Buffer
 import scala.io.{BufferedSource, Source}
 import steve.conf.Conf
@@ -22,6 +22,10 @@ object AfricanCrisesAnalysis {
         val rowNums: Int = values.count(!(_: String).isEmpty)
         println(values.head)
         println(s"rowNums:$rowNums")
+        val caseStrings: Buffer[String] = lines.map((_: String).split(",")(0)).toBuffer
+        SingleFeatureAnalysis.load_data(caseStrings)
+        val caseValueCounts: Buffer[(String, Int)] = SingleFeatureAnalysis.value_counts()
+        output_data(caseValueCounts)
         inputSource.close()
     }
 
@@ -40,5 +44,11 @@ object AfricanCrisesAnalysis {
         }
         this.inputFile = inputFile
         this.outputFile = outputFile
+    }
+
+    def output_data[A <: Any](data: Buffer[A]): Unit = {
+        val writer: FileWriter = new FileWriter(outputFile)
+        data.foreach((value: A) => writer.write(value.toString + "\n"))
+        writer.close()
     }
 }
