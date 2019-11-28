@@ -33,7 +33,7 @@ object Solution {
 
   def bagOfTokensScore(tokens: Array[Int], P: Int, score: Int): (Array[Int], Int, Int) = {
 
-    while (P > tokens.min)
+    while (P > tokens.min){}
 
     (Array(0), 0, 0)
   }
