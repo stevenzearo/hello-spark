@@ -16,10 +16,9 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile group: 'org.scala-lang', name: 'scala-library', version: '2.10.7'
-    testCompile "org.scala-lang:scala-library:2.10.7"
-    compile group: 'org.apache.spark', name: 'spark-core_2.10', version: '2.0.1'
-    compile group: 'org.apache.spark', name: 'spark-mllib_2.10', version: '2.0.1'
-    compile group: 'org.jpmml', name: 'pmml-evaluator', version: '1.4.9'
-    compile group: 'org.jpmml', name: 'pmml-evaluator-extension', version: '1.4.9'
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.11'
+    compile group: 'org.apache.spark', name: 'spark-core_2.12', version: '2.4.5'
+    compile group: 'org.apache.spark', name: 'spark-mllib_2.12', version: '2.4.5'
+    compile group: 'org.jpmml', name: 'pmml-evaluator', version: '1.5.1'
+    compile group: 'org.jpmml', name: 'pmml-evaluator-extension', version: '1.5.1'
 }
